@@ -1,7 +1,11 @@
-import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
+import Input from "@/components/input";
+import { SubmitButton } from "@/components/submit-button";
+import Todo from "@/components/todo";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
-import { InfoIcon } from "lucide-react";
+import { ChevronDown, InfoIcon, Menu } from "lucide-react";
 import { redirect } from "next/navigation";
+import { signOutAction } from "../actions";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -14,24 +18,52 @@ export default async function ProtectedPage() {
     return redirect("/sign-in");
   }
 
+  const {error,  data: todos } = await supabase.from("todos").select();
+
+  console.log("todos", todos, error);
+
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
-        <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
-          <InfoIcon size="16" strokeWidth={2} />
-          This is a protected page that you can only see as an authenticated
-          user
+    <div className=" w-full mx-20 mt-10 overflow-auto flex flex-col justify-between">
+      <div className="">
+        <div className="flex justify-between">
+          <div className="mb-10">
+            <h1 className="font-bold text-2xl">
+              Good morning <span>Noble</span>
+            </h1>
+            <h2 className="text-slate-400">Today Sat 26 Aug 2024 </h2>
+          </div>
+          <form>
+            <SubmitButton
+              pendingText="Signing Out..."
+              formAction={signOutAction}
+            >
+              Sign Out
+            </SubmitButton>
+          </form>
+          <div className="flex gap-4">
+            <div className="bg-white rounded-xl h-[48px] w-[160px] flex items-center ps-2 gap-2">
+              <button className="bg-slate-100 rounded-lg h-[32px] w-[32px] grid place-items-center">
+                <ChevronDown />
+              </button>
+              Today
+            </div>
+            <button className="bg-white rounded-xl h-[48px] w-[48px] grid place-items-center">
+              <Menu />
+            </button>
+          </div>
         </div>
+        <ul className="flex flex-col gap-2 h-full max-h-[65vh] overflow-auto">
+          {todos &&
+            todos.map(({ id, name }) => (
+              <li key={id}>
+                <Todo name={name} />
+              </li>
+            ))}
+        </ul>
       </div>
-      <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          {JSON.stringify(user, null, 2)}
-        </pre>
-      </div>
-      <div>
-        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-        <FetchDataSteps />
+
+      <div className=" mb-10 flex justify-center">
+        <Input />
       </div>
     </div>
   );

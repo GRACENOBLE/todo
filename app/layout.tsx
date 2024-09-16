@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
         <main className="h-screen flex bg-slate-100">
-          <Sidebar/>
+          
           {children}
         </main>
       </body>

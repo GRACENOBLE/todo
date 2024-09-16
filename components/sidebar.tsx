@@ -71,11 +71,14 @@ const Sidebar = () => {
         />
         {/* groups */}
         <h2 className="font-bold my-4">Groups</h2>
-        <div className="grid grid-cols-2 gap-2 mb-4">
-          {groups.map(() => (
-            <Groupcard />
+        <ul className="grid grid-cols-2 gap-2 mb-4">
+          {groups.map((_, i) => (
+            <li key={i}>
+              <Groupcard />
+            </li>
           ))}
-        </div>
+        </ul>
+
         <input
           type="text"
           className="outline-none px-4 w-full rounded-full py-2 bg-slate-100"
