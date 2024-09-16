@@ -4,9 +4,15 @@ import { revalidatePath } from "next/cache";
 
 export const post = async (formdata: FormData) => {
   const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const id = user && user["id"];
+
   const response = await supabase.from("todos").insert({
     name: formdata.get("todo"),
     status: false,
+    user_id: id,
   });
   revalidatePath("/");
 };
@@ -21,8 +27,7 @@ export const updatePost = async (prev: any, formdata: FormData) => {
   const supabase = createClient();
   const response = await supabase
     .from("todos")
-    .update({ name: formdata.get('input') })
+    .update({ name: formdata.get("input") })
     .eq("name", prev);
   revalidatePath("/");
-
 };
