@@ -6,6 +6,7 @@ import { createClient } from "@/utils/supabase/server";
 import { ChevronDown, InfoIcon, Menu } from "lucide-react";
 import { redirect } from "next/navigation";
 import { signOutAction } from "../actions";
+import CompletedTodo from "@/components/completed-todo";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -57,12 +58,25 @@ export default async function ProtectedPage() {
             </button>
           </div>
         </div>
+
         <ul className="flex flex-col gap-2 h-full max-h-[65vh] overflow-auto">
           {todos &&
-            todos.map(({ id, name }) => (
-              <li key={id}>
-                <Todo name={name} />
-              </li>
+            todos
+              .filter((todo) => todo.status == false)
+              .map(({ id, name }) => (
+                <li key={id}>
+                  <Todo name={name} />
+                </li>
+              ))}
+        </ul>
+        <h2>Completed Todos</h2>
+        <ul>
+          {todos
+            ?.filter((todo) => todo.status == true)
+            .map((todo) => (
+              <div>
+                <CompletedTodo todo={todo} />
+              </div>
             ))}
         </ul>
       </div>

@@ -20,10 +20,6 @@ const Todo = ({ name }: { name: string }) => {
   return (
     <div className="w-full bg-white p-2 rounded-xl flex justify-between">
       <div className="flex gap-2 items-center">
-        <input
-          type="checkbox"
-          className="outline-none border-slate-400 cursor-pointer"
-        />
         {editMode ? (
           <form
             ref={inputRef}
@@ -34,9 +30,14 @@ const Todo = ({ name }: { name: string }) => {
             }}
           >
             <input
+              type="checkbox"
+              name="checkbox"
+              className="outline-none border-slate-400 cursor-pointer"
+            />
+            <input
               name="input"
               type="text"
-              placeholder={name}
+              defaultValue={name}
               className="border rounded-lg px-2"
               autoFocus
             ></input>

@@ -27,7 +27,7 @@ export const updatePost = async (prev: any, formdata: FormData) => {
   const supabase = createClient();
   const response = await supabase
     .from("todos")
-    .update({ name: formdata.get("input") })
+    .update({ name: formdata.get("input"), status: formdata.get("checkbox") })
     .eq("name", prev);
   revalidatePath("/");
 };
