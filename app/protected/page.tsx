@@ -25,7 +25,6 @@ export default async function ProtectedPage() {
     .from("todos")
     .select()
     .eq("user_id", id);
-
   console.log("todos", todos, error);
 
   return (

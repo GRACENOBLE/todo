@@ -29,11 +29,7 @@ const Todo = ({ name }: { name: string }) => {
               setEditMode(false);
             }}
           >
-            <input
-              type="checkbox"
-              name="checkbox"
-              className="outline-none border-slate-400 cursor-pointer"
-            />
+            <input type="checkbox" name="completed" />
             <input
               name="input"
               type="text"
