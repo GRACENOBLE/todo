@@ -2,7 +2,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
-export const post = async (formdata: FormData) => {
+export const post = async (formdata: FormData, list: string) => {
   const supabase = createClient();
   const {
     data: { user },
@@ -13,6 +13,7 @@ export const post = async (formdata: FormData) => {
     name: formdata.get("todo"),
     status: false,
     user_id: id,
+    list: list,
   });
   revalidatePath("/");
 };

@@ -6,7 +6,7 @@ import { post } from "@/actions";
 import { useRef } from "react";
 import { useFormStatus } from "react-dom";
 
-const Input = () => {
+const Input = ({list}:{list: string}) => {
   const { pending } = useFormStatus();
   const ref = useRef<HTMLFormElement>(null);
   return (
@@ -14,7 +14,7 @@ const Input = () => {
       ref={ref}
       action={async (formData) => {
         ref.current?.reset();
-        await post(formData);
+        await post(formData, list);
       }}
       className="flex w-full justify-center gap-4 "
     >

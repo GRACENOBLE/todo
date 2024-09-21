@@ -8,7 +8,11 @@ import { redirect } from "next/navigation";
 import { signOutAction } from "@/app/actions";
 import CompletedTodo from "@/components/completed-todo";
 
-export default async function ProtectedPage() {
+export default async function ProtectedPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const supabase = createClient();
 
   const {
@@ -24,7 +28,8 @@ export default async function ProtectedPage() {
   const { error, data: todos } = await supabase
     .from("todos")
     .select()
-    .eq("user_id", id);
+    .eq("user_id", id)
+    .eq("list", params.slug);
   console.log("todos", todos, error);
 
   return (
@@ -81,7 +86,7 @@ export default async function ProtectedPage() {
       </div>
 
       <div className=" mb-10 flex justify-center">
-        <Input />
+        <Input list={params.slug} />
       </div>
     </div>
   );
