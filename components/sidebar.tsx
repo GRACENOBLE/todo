@@ -1,13 +1,15 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navcomponent from "./navcomponent";
 import Groupcard from "./groupcard";
 import { useRouter } from "next/navigation";
+import { getLists } from "@/actions";
 
 const Sidebar = () => {
   const router = useRouter();
   const navlinks: { title: string; route: string }[] = [];
 
+  const [userLists, setUserLists] = useState<any>([]);
   const [lists, setLists] = useState<any>([]);
   const [inputData, setInputData] = useState("");
 
@@ -20,12 +22,30 @@ const Sidebar = () => {
     router.push(`/protected/${inputData}`);
   };
 
-  console.log(lists);
+  useEffect(() => {
+    const fetchData = async() => {
+      const data = await getLists();
+      setUserLists(data)
+    };
+    
+    console.log(fetchData())
+  }, []);
+
+  console.log(userLists);
 
   return (
     <div className=" max-h-screen h-full py-4 ps-20">
       <div className="h-full w-[360px] rounded-lg px-2 py-8 overflow-auto bg-white">
         <h2 className="font-bold mb-4">Private</h2>
+        <ul className="mb-4">
+          {userLists.map(
+            ({ list }: { list: string; route: string }) => (
+              <li key={list}>
+                <Navcomponent title={list} route={`/protected/${list}`} />
+              </li>
+            )
+          )}
+        </ul>
         <ul className="mb-4">
           {lists.map(({ title, route }: { title: string; route: string }) => (
             <li key={title}>

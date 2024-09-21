@@ -30,7 +30,7 @@ export default async function ProtectedPage({
     .select()
     .eq("user_id", id)
     .eq("list", params.slug);
-  console.log("todos", todos, error);
+  
 
   return (
     <div className=" w-full mx-20 mt-10 overflow-auto flex flex-col justify-between">

@@ -46,3 +46,17 @@ export const updatePost = async (prev: any, formdata: FormData) => {
     .eq("name", prev);
   revalidatePath("/");
 };
+
+export const getLists = async () => {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const id = user && user["id"];
+  const { error, data: todos } = await supabase
+    .from("todos")
+    .select()
+    .eq("user_id", id);
+
+  return todos;
+};
