@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
 import { ChevronDown, InfoIcon, Menu } from "lucide-react";
 import { redirect } from "next/navigation";
-import { signOutAction } from "../actions";
+import { signOutAction } from "@/app/actions";
 import CompletedTodo from "@/components/completed-todo";
 
 export default async function ProtectedPage() {

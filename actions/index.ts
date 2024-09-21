@@ -25,7 +25,15 @@ export const deletePost = async (name: any) => {
 
 export const deleteCompletedTodo = async (name: any) => {
   const supabase = createClient();
-  const response = await supabase.from("todos").delete().eq("name", name);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const id = user && user["id"];
+  const response = await supabase
+    .from("todos")
+    .delete()
+    .eq("name", name)
+    .eq("user_id", id);
   revalidatePath("/");
 };
 
