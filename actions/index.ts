@@ -23,6 +23,12 @@ export const deletePost = async (name: any) => {
   revalidatePath("/");
 };
 
+export const deleteCompletedTodo = async (name: any) => {
+  const supabase = createClient();
+  const response = await supabase.from("todos").delete().eq("name", name);
+  revalidatePath("/");
+};
+
 export const updatePost = async (prev: any, formdata: FormData) => {
   const supabase = createClient();
   const response = await supabase
