@@ -23,28 +23,34 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    const fetchData = async() => {
+    const fetchData = async () => {
       const data = await getLists();
-      setUserLists(data)
+      setUserLists(data);
     };
-    
-    console.log(fetchData())
+
+    fetchData();
   }, []);
 
-  console.log(userLists);
+  const uniqueLists = new Set();
 
   return (
     <div className=" max-h-screen h-full py-4 ps-20">
       <div className="h-full w-[360px] rounded-lg px-2 py-8 overflow-auto bg-white">
         <h2 className="font-bold mb-4">Private</h2>
-        <ul className="mb-4">
-          {userLists.map(
-            ({ list }: { list: string; route: string }) => (
-              <li key={list}>
-                <Navcomponent title={list} route={`/protected/${list}`} />
-              </li>
-            )
-          )}
+        <ul>
+          {userLists
+            .map(({ list, route }: { list: string; route: string }) => {
+              if (!uniqueLists.has(list)) {
+                uniqueLists.add(list);
+                return (
+                  <li key={list}>
+                    <Navcomponent title={list} route={`/protected/${route}`} />
+                  </li>
+                );
+              }
+              return null;
+            })
+            .filter(Boolean)}
         </ul>
         <ul className="mb-4">
           {lists.map(({ title, route }: { title: string; route: string }) => (
