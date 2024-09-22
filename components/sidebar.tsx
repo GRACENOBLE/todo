@@ -17,7 +17,7 @@ const Sidebar = () => {
 
   const handleAddList = () => {
     const temp: {}[] = lists.slice();
-    temp.push({ title: inputData, route: `/protected/${inputData}` });
+    temp.push({ title: inputData });
     setLists(temp);
     router.push(`/protected/${inputData}`);
   };
@@ -33,18 +33,20 @@ const Sidebar = () => {
 
   const uniqueLists = new Set();
 
+  console.log(uniqueLists);
+
   return (
     <div className=" max-h-screen h-full py-4 ps-20">
       <div className="h-full w-[360px] rounded-lg px-2 py-8 overflow-auto bg-white">
         <h2 className="font-bold mb-4">Private</h2>
         <ul>
           {userLists
-            .map(({ list, route }: { list: string; route: string }) => {
+            .map(({ list }: { list: string; route: string }) => {
               if (!uniqueLists.has(list)) {
                 uniqueLists.add(list);
                 return (
                   <li key={list}>
-                    <Navcomponent title={list} route={`/protected/${route}`} />
+                    <Navcomponent title={list} route={`/protected/${list}`} />
                   </li>
                 );
               }
