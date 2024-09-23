@@ -33,14 +33,12 @@ const Sidebar = () => {
 
   const uniqueLists = new Set();
 
-  console.log(uniqueLists);
-
   return (
     <div className="h-screen py-4">
       <div className="h-full w-[360px] rounded-xl px-4 py-8 overflow-auto bg-white">
         <h2 className="font-bold mb-4">Private</h2>
 
-        <Navcomponent title={"Today"} route={`/protected/today`} />
+        <Navcomponent title={"Today"} route={`/protected/today`} userList={[]} />
         <ul>
           {userLists
             .map(({ list }: { list: string; route: string }) => {
@@ -48,7 +46,7 @@ const Sidebar = () => {
                 uniqueLists.add(list);
                 return (
                   <li key={list}>
-                    <Navcomponent title={list} route={`/protected/${list}`} />
+                    <Navcomponent title={list} route={`/protected/${list}`} userList={userLists} />
                   </li>
                 );
               }
@@ -59,7 +57,7 @@ const Sidebar = () => {
         <ul className="mb-4">
           {lists.map(({ title, route }: { title: string; route: string }) => (
             <li key={title}>
-              <Navcomponent title={title} route={route} />
+              <Navcomponent title={title} route={route} userList={[]} />
             </li>
           ))}
         </ul>
