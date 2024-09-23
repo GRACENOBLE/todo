@@ -1,13 +1,16 @@
-import Sidebar from '@/components/sidebar';
-import React from 'react'
+import Container from "@/components/container";
+import Sidebar from "@/components/sidebar";
+import React from "react";
 
-const layout = ({children}: {children: React.ReactNode}) => {
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='flex'>
-      <Sidebar />
-      {children}
-    </div>
+    <Container>
+      <div className="flex justify-between">
+        <Sidebar />
+        {children}
+      </div>
+    </Container>
   );
-}
+};
 
-export default layout
+export default layout;

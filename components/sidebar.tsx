@@ -36,8 +36,8 @@ const Sidebar = () => {
   console.log(uniqueLists);
 
   return (
-    <div className=" max-h-screen h-full py-4 ps-20">
-      <div className="h-full w-[360px] rounded-lg px-2 py-8 overflow-auto bg-white">
+    <div className="h-screen py-4">
+      <div className="h-full w-[360px] rounded-xl px-4 py-8 overflow-auto bg-white">
         <h2 className="font-bold mb-4">Private</h2>
 
         <Navcomponent title={"Today"} route={`/protected/today`} />
