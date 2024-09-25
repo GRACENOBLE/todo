@@ -51,11 +51,25 @@ export default async function ProtectedPage({
           </div>
 
           <div className="flex gap-4">
-            <div className="bg-white rounded-xl h-[48px] w-[160px] flex items-center ps-2 gap-2">
-              <button className="bg-slate-100 rounded-lg h-[32px] w-[32px] grid place-items-center">
-                <ChevronDown />
-              </button>
-              Today
+            <div className="bg-white rounded-xl h-[48px] w-[160px] overflow-clip flex items-center ps-2 gap-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="bg-slate-100 rounded-lg h-[32px] w-[32px] grid place-items-center outline-none">
+                  <ChevronDown />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-white px-4 pt-4 pb-8 rounded-xl">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <form>
+                    <SubmitButton
+                      pendingText="Signing Out..."
+                      formAction={signOutAction}
+                    >
+                      Sign Out
+                    </SubmitButton>
+                  </form>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              {params.slug.replaceAll("%20", " ")}
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger className="bg-white rounded-xl h-[48px] w-[48px] grid place-items-center outline-none">
