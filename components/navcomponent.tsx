@@ -28,7 +28,7 @@ const Navcomponent = ({
       className="flex justify-between items-center rounded-xl px-2 group hover:bg-slate-100 h-[48px] transition-all ease-in-out duration-300"
       href={route}
     >
-      <p className="flex gap-2">{title}</p>
+      <p className="flex gap-2">{title.replaceAll("%20", " ")}</p>
       <div className="bg-slate-100 w-8 h-[24px] text-xs grid place-items-center rounded-full group-hover:bg-white ">
         {count}
       </div>
